@@ -1,0 +1,78 @@
+<main class="container bg-slate-50 p-4 mx-auto mt-4">
+    <h1 class="text-3xl text-center mb-4">Gerenciamento de Pedidos</h1>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <section>
+        <h2 class="text-xl font-bold mb-2 text-purplePrimary">Solicitado</h2>
+        <div id="solicitado" class="space-y-2 h-96 overflow-y-scroll">
+            @for(pedidoSolicitados of pedidosSolicitados; track $index){
+                    <div class="p-4 bg-white shadow rounded-lg border border-gray-200">
+                      <p><strong>Tamanho:</strong> {{ pedidoSolicitados.tamanho }}</p>
+                      <p><strong>Acompanhamentos:</strong> 
+                        {{ concatenarAcompanhamentos(pedidoSolicitados.acompanhamentosGratis) }}
+                        {{ concatenarAcompanhamentos(pedidoSolicitados.acompanhamentosPremium) }}                       
+                      </p>
+                      <p><strong>Pagamento:</strong> {{ pedidoSolicitados.pagamento }}</p>
+                      @if(pedidoSolicitados.troco){
+                        <p><strong>Troco:</strong> R$ {{ pedidoSolicitados.troco | number: '1.2-2' }}</p>
+                      }                      
+                      <p><strong>Status:</strong> {{ pedidoSolicitados.status }}</p>
+                      <p><strong>Telefone para contato:</strong> {{ pedidoSolicitados.telefone }}</p>
+                      <p><strong>Total do pedido:</strong> {{ pedidoSolicitados.total | number: '1.2-2' }}</p>
+                      <button (click)="atualizarStatus(pedidoSolicitados, 'Em Andamento')" 
+                      class="mt-2 py-1 px-3 bg-blue-500 text-white rounded">
+                          Mover para Em Andamento
+                      </button>
+                    </div>
+                    
+            }
+        </div>
+      </section>
+      <section>
+        <h2 class="text-xl font-bold mb-2 text-purplePrimary">Em Andamento</h2>
+        <div id="emAndamento" class="space-y-2 h-96 overflow-y-scroll">
+            @for(pedidosEmAndamento of pedidosEmAndamento; track $index){
+                    <div class="p-4 bg-white shadow rounded-lg border border-gray-200">
+                      <p><strong>Tamanho:</strong> {{ pedidosEmAndamento.tamanho }}</p>
+                      <p><strong>Acompanhamentos:</strong> 
+                        {{ concatenarAcompanhamentos(pedidosEmAndamento.acompanhamentosGratis) }}
+                        {{ concatenarAcompanhamentos(pedidosEmAndamento.acompanhamentosPremium) }}                       
+                      </p>
+                      <p><strong>Pagamento:</strong> {{ pedidosEmAndamento.pagamento }}</p>
+                      @if(pedidosEmAndamento.troco){
+                        <p><strong>Troco:</strong> R$ {{ pedidosEmAndamento.troco | number: '1.2-2' }}</p>
+                      }                   
+                      <p><strong>Status:</strong> {{ pedidosEmAndamento.status }}</p>
+                      <p><strong>Telefone para contato:</strong> {{ pedidosEmAndamento.telefone }}</p>
+                      <p><strong>Total do pedido:</strong> {{ pedidosEmAndamento.total | number: '1.2-2' }}</p>                     
+                      <button (click)="atualizarStatus(pedidosEmAndamento, 'Finalizado')" 
+                    class="mt-2 py-1 px-3 bg-green-500 text-white rounded">
+              Mover para Finalizado
+            </button>
+                    </div>
+                    
+            }
+        </div>
+      </section>
+  
+      <section>
+        <h2 class="text-xl font-bold mb-2 text-purplePrimary">Finalizado</h2>
+        <div id="finalizado" class="space-y-2 h-96 overflow-y-scroll">
+            @for(pedidosFinalizados of pedidosFinalizados; track $index){
+                <ng-container >
+                    <div class="p-4 bg-white shadow rounded-lg border border-gray-200">
+                      <p><strong>Tamanho:</strong> {{ pedidosFinalizados.tamanho }}</p>
+                      <p><strong>Pagamento:</strong> {{ pedidosFinalizados.pagamento }}</p>
+                      @if(pedidosFinalizados.troco){
+                        <p><strong>Troco:</strong> R$ {{ pedidosFinalizados.troco | number: '1.2-2' }}</p>
+                      }
+                      <p><strong>Status:</strong> {{ pedidosFinalizados.status }}</p>
+                      <p><strong>Telefone para contato:</strong> {{ pedidosFinalizados.telefone }}</p>
+                      <p><strong>Total do pedido:</strong> {{ pedidosFinalizados.total | number: '1.2-2' }}</p>                                
+                    </div>
+                  </ng-container>
+            }
+        </div>
+      </section>
+    </div>
+  </main>
+  

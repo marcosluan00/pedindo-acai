@@ -1,0 +1,29 @@
+
+<main class="container m-auto max-w-md">
+    <section class="login-container px-10 py-4 max-h-dvh mt-10
+      bg-white rounded shadow">
+        <h1 class="py-2 font-bold text-xl text-center"> Bem-vindo ao Açaí Do Marquinhos </h1>
+            <form id="loginForm">
+                <div class="my-5 flex flex-col">
+                    <label for="form-label">Usuario</label>
+                    <input type="text" class="h-9 form-control
+                    border mr-3 border-gray-300 rounded-md p-2 focus:outline-none focus:border-purplePrimary focus:ring-1 focus:ring-purplePrimary"
+                    id="email" required>
+                    <div class="error-message" id="emailError"></div>
+                </div>
+                <div class="my-5 flex flex-col">
+                    <label for="form-label">Senha</label>
+                    <input type="password" class="h-9 form-control
+                    border border-gray-300 rounded-md p-2 focus:outline-none focus:border-purplePrimary focus:ring-1 focus:ring-purplePrimary"
+                    id="password"
+                    required>
+                    <div class="error-message" id="passwordError"></div>
+                </div>
+
+                <div class="mx-auto flex flex-col">
+                    <button type="submit" class="py-1 px-3 rounded-md min-w-52 text-white bg-purplePrimary mb-3"
+                    > Entrar</button>
+                </div>
+            </form>
+    </section>
+</main>

@@ -1,0 +1,98 @@
+<main class="container bg-slate-50 p-2 mx-auto">
+    <h1 class="text-3xl text-center">Faça seu pedido aqui</h1>
+    
+    <form class="mb-2" (submit)="fazerPedido()">
+        <section>
+            <h2 class="text-lg m-2">Escolha o tamanho</h2>
+            <div class="flex flex-row flex-wrap justify-around">
+                @for(tamanho of tamanhos; track tamanho) {
+                    <div class="mx-2 min-w-xs p-6 text-white bg-purpleSecondary border border-gray-200 rounded-lg shadow flex flex-col flex-grow"
+                    (click)="selecionarTamanho(tamanho)" 
+                    [class.selected]="tamanhoSelecionado?.title === tamanho.title">
+                        <input type="radio" name="tamanho" id="tamanho-{{ tamanho.id }}" value="{{ tamanho.id }}" (change)="selecionarTamanho(tamanho)">
+                        <label for="tamanho-{{ tamanho.id }}" class="title">{{ tamanho.title }} - <b>{{ tamanho.price | currency:'BRL':'symbol':'1.2-2' }}</b></label>
+                        <i class="details">{{ tamanho.description }}</i>
+                    </div>
+                }
+            </div>
+        </section>
+        
+        <section class="mx-2 mt-4">
+            <h2 class="text-lg font-bold">Acompanhamentos Gratuitos</h2>
+            <div class="grid my-2 grid-cols-2 md:grid-cols-3">
+                @for(gratis of acompanhamentosGratis; track $index) {
+                    <span class="flex gap-3">
+                        <input 
+                            type="checkbox" 
+                            name="acompanhamentosGratis" 
+                            id="acompanhamentosGratis-{{ gratis.id }}" 
+                            [disabled]="contagemAcompanhamentos >= limiteAcompanhamentos && !acompanhaSelecionado(gratis.id)"
+                            (change)="atualizarContagem($event)"
+                            (change)="toggleAcompanhamentoGratis(gratis)">
+                        <label for="acompanhamentosGratis-{{ gratis.id }}">{{ gratis.name }}</label>
+                    </span>
+                }
+            </div>
+    
+            <h2 class="mt-2 text-lg font-bold">Adicionais</h2>
+            <div class="grid my-2 grid-cols-1 md:grid-cols-2">
+            @for(adicionais of acompanhamentosPremium; track $index) {
+                <span class="flex gap-2">
+                    <input type="checkbox" name="acompanhamentosPremium" id="acompanhamentosPremium-{{ adicionais.id }}"
+                    (change)="toggleAcompanhamentoPremium(adicionais)">
+                    <label for="acompanhamentosPremium-{{ adicionais.id }}">{{ adicionais.name }} - {{ adicionais.price | currency:'BRL':'symbol':'1.2-2'}}</label>
+                </span>
+            }
+            </div>
+        </section>
+    
+        <section class="mx-2 mt-4">
+            <h2 class="text-lg font-bold">Meio de Pagamento</h2>
+            <span class="flex gap-2">
+                <input type="radio" name="pagamento" id="pagamento-cartao" (change)="selecionarPagamento('cartao')">
+                <label for="pagamento-cartao">Cartão</label>
+            </span>
+            <span class="flex gap-2">
+                <input type="radio" name="pagamento" id="pagamento-pix" (change)="selecionarPagamento('pix')">
+                <label for="pagamento-pix">PIX</label>
+            </span>
+            <span class="flex gap-2">
+                <input type="radio" name="pagamento" id="pagamento-dinheiro" (change)="selecionarPagamento('dinheiro')">
+                <label for="pagamento-dinheiro">Dinheiro</label>
+            </span>
+        
+            @if(tipoDePagamento === 'dinheiro'){
+                <div class="mt-2">
+                    <label for="troco" class="font-bold mr-2">Precisa de troco?</label>
+                    <input type="number" name="troco" id="troco" placeholder="Informe o valor para troco"
+                    [(ngModel)]="trocoNecessario" 
+                       class="h-9 form-control border border-gray-300 rounded-md p-2 focus:outline-none focus:border-purplePrimary focus:ring-1 focus:ring-purplePrimary">
+                </div>
+            }
+           
+       
+        </section>
+        
+
+        <section class="mx-2 mt-4">
+            <h2 class="text-lg font-bold"> Telefone para contato</h2>
+            <span class="flex gap-2 mt-2">
+                <input type="tel" name="telefone" id="telefone"
+                required [(ngModel)]="telefone"
+                class="h-9 form-control
+                border border-gray-300 rounded-md p-2 focus:outline-none focus:border-purplePrimary focus:ring-1 focus:ring-purplePrimary">                
+            </span>
+        </section>
+
+        <div class="text-right mt-4">
+            <p><strong>Valor Total:</strong> {{ valorTotal | currency:'BRL':'symbol':'1.2-2' }}</p>
+          </div>
+          
+        <div class="flex mt-4 justify-center">
+            <button type="submit" 
+            class="py-1 px-3 rounded-md min-w-52 text-white bg-purplePrimary mx-auto"
+            > Pedir </button>
+            <button id="limpar" type="reset" (click)="limparFormulario()"   class="py-1 px-3 rounded-md min-w-52 text-white bg-purplePrimary mx-auto">Limpar Pedido</button>
+        </div>
+    </form>
+</main>
