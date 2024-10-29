@@ -1,1 +1,35 @@
-<p>order-history works!</p>
+<div class="container p-4 mx-auto">
+    <h2 class="text-2xl font-bold mb-4 ">Histórico de Pedidos</h2>
+  
+    <div class="mb-4">
+      <input 
+        [(ngModel)]="telefoneUsuario"
+        type="text"
+        placeholder="Digite seu número"
+        class="border p-2 w-full rounded"
+      />
+      <button (click)="buscarPedidos()" class="mt-2 py-2 px-4 bg-purplePrimary text-white rounded">
+        Buscar
+      </button>
+    </div>
+  
+    @if (pedidosEncontrados) {
+        @for(pedido of pedidos; track $index){
+            <div class="p-4 mb-4 border rounded-lg bg-white shadow">
+                <p><strong>Tamanho:</strong> {{ pedido.tamanho }}</p>
+                <p><strong>Acompanhamentos:</strong> 
+                  {{ concatenarAcompanhamentos(pedido.acompanhamentosGratis) }}
+                  {{ concatenarAcompanhamentos(pedido.acompanhamentosPremium) }}
+                </p>
+                <p><strong>Pagamento:</strong> {{ pedido.pagamento }}</p>
+                <p><strong>Status:</strong> {{ pedido.status }}</p>
+                <p><strong>Total:</strong> {{ pedido.total | currency:'BRL':'symbol':'1.2-2' }}</p>
+            </div>
+        }
+    } @else {
+        
+            <p class="text-red-500">Nenhum pedido encontrado para esse número.</p>
+    }
+
+</div>
+  
