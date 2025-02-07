@@ -30,7 +30,6 @@ export class OrderSummaryComponent {
   atualizarStatus(pedido: Pedido, novoStatus:'Solicitado' | 'Em Andamento' | 'Finalizado') {
     pedido.status = novoStatus;
     
-    // Atualiza no localStorage
     const pedidos = JSON.parse(localStorage.getItem('pedidos') || '[]');
     const pedidoIndex = pedidos.findIndex((p: Pedido) => p.id === pedido.id);
     
@@ -39,7 +38,6 @@ export class OrderSummaryComponent {
       localStorage.setItem('pedidos', JSON.stringify(pedidos));
     }
     
-    // Recarrega a lista de pedidos atualizada
     this.carregarPedidos();
   }
   concatenarAcompanhamentos(acompanhamentos: Acompanhamentos[]){

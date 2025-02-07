@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+
 import { Acompanhamentos, Pedido, Tamanho } from '../../shared/interfaces';
 import { FormsModule } from '@angular/forms';
 import { PedidosServicesService } from '../../services/pedidos-services.service';
@@ -17,7 +18,7 @@ export class OrderPagesComponent {
   contagemAcompanhamentos:number = 0;
   valorTotal: number = 0;
   tipoDePagamento: string = '';
-  telefone:number = 0;
+  telefone: number = 0;
 
   trocoNecessario: number= 0;
 
@@ -117,7 +118,7 @@ export class OrderPagesComponent {
       pagamento: this.tipoDePagamento || '',
       troco: this.tipoDePagamento === 'dinheiro' ? this.trocoNecessario : undefined,
       status: 'Solicitado',
-      telefone: this.telefone,
+      telefone: Number(this.telefone),
       total: this.valorTotal,
     };
 

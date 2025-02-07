@@ -4,9 +4,10 @@
     <div class="mb-4">
       <input 
         [(ngModel)]="telefoneUsuario"
-        type="text"
-        placeholder="Digite seu número"
-        class="border p-2 w-full rounded"
+        type="number"
+        placeholder="Digite seu telefone"
+        class="border p-2 w-full rounded focus:outline-none focus:border-purplePrimary focus:ring-1 focus:ring-purplePrimary"
+        required
       />
       <button (click)="buscarPedidos()" class="mt-2 py-2 px-4 bg-purplePrimary text-white rounded">
         Buscar
